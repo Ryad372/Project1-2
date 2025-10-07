@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Enregistrés - Current</title>
+  <link rel="stylesheet" href="SeeCV.css">
+  <link rel="icon" href="Images/Logo.webp">
+</head>
+<body>
+
+<div class="border-box">
+  <h1 class="title">CV Enregistrés</h1>
+  <p class="subtitle">
+    Découvrez les CV créés par nos utilisateurs sur la plateforme <strong>Current</strong>.
+  </p>
+
+  <!-- Search and Filter -->
+  <div class="search-section">
+    <input type="text" id="search" placeholder="Rechercher par nom ou id..." class="search-input">
+  </div>
+  <!-- Back Button -->
+  <div class="buttons">
+    <button class="btn secondary" id="btn-accueil">Retour à l'accueil</button>
+  </div>
+</div>
+
+<script >
+  document.getElementById("btn-accueil").addEventListener("click", function() {
+    window.location.href = "Home.html";
+  });
+
+  // Search functionality
+  const searchInput = document.getElementById('search');
+  const cvCards = document.querySelectorAll('.cv-card');
+
+  function filterCVs() {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    cvCards.forEach(card => {
+      const name = card.querySelector('.cv-name').textContent.toLowerCase();
+      const title = card.querySelector('.cv-title').textContent.toLowerCase();
+      const skills = Array.from(card.querySelectorAll('.skill-tag'))
+        .map(tag => tag.textContent.toLowerCase())
+        .join(' ');
+      const domain = card.getAttribute('data-domain');
+
+      const matchesSearch = name.includes(searchTerm) || 
+                           title.includes(searchTerm) || 
+                           skills.includes(searchTerm);
+
+      if (matchesSearch ) {
+        card.style.display = 'block';
+        card.style.animation = 'fadeIn 0.5s ease forwards';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', filterCVs);
+  filterSelect.addEventListener('change', filterCVs);
+
+  // Button interactions
+  document.querySelectorAll('.btn-view').forEach(btn => {
+    btn.addEventListener('click', function() {
+      alert('Fonctionnalité de visualisation du CV à venir !');
+    });
+  });
+
+  document.querySelectorAll('.btn-contact').forEach(btn => {
+    btn.addEventListener('click', function() {
+      alert('Fonctionnalité de contact à venir !');
+    });
+  });
+</script>
+
+</body>
+</html>
